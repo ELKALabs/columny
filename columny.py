@@ -18,21 +18,8 @@ class Colonify():
 		parser.add_argument('-o', nargs='?', type=str, help="Output file name")
 		args = parser.parse_args()
 		self.dict_args = vars(args)
-
-	def _openWriteStream(self, filePath, default_dir):
-		if _path.exists(_path.dirname(filePath)):
-			if _path.isdir(filePath):
-				return False
-			else:
-				try:
-					return open(filePath,'w')
-				except FileNotFoundError:
-					print(self.errorStrings["FileNotFoundError"])
-					exit(1)
-		else:
-			return False
 			
-	def _openWriteStream_(self, filePath):
+	def _openWriteStream(self, filePath):
 		try:
 			if not _path.isdir(filePath):
 				if _path.exists(_path.dirname(filePath)):
@@ -91,7 +78,7 @@ class Colonify():
 				fout = False
 				
 				if self.dict_args['o'] not in (None,''):
-					fout =  self._openWriteStream_(self.dict_args['o'])
+					fout =  self._openWriteStream(self.dict_args['o'])
 					if not fout:
 						dump = "dump_0.txt"
 						print("# Creating dump file: "+os.getcwd()+"\\"+dump)
